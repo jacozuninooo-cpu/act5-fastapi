@@ -10,14 +10,12 @@ router = APIRouter(prefix="/videojuegos", tags=["Videojuegos"])
 VideojuegoId = Annotated[int, Path(gt=0)]
 
 
-# GET: Obtener todos
 @router.get("/", response_model=list[VideoJuego])
 def obtener_videojuegos(db: Session = Depends(get_db)):
   videojuegos = db.query(VideoJuegoModel).all()
   return videojuegos
 
 
-# GET: Obtener por ID
 @router.get(
     "/{id}",
     response_model=VideoJuego,
@@ -32,7 +30,6 @@ def obtener_videojuego_id(id: VideojuegoId, db: Session = Depends(get_db)):
   return videojuego
 
 
-# POST: Crear videojuego
 @router.post("/", response_model=VideoJuego, status_code=201)
 def crear_videojuego(
     videojuego: VideoJuegoCreate, db: Session = Depends(get_db)
@@ -44,7 +41,6 @@ def crear_videojuego(
   return nuevo_videojuego
 
 
-# PUT: Actualizar videojuego
 @router.put(
     "/{id}",
     response_model=VideoJuego,
@@ -69,7 +65,6 @@ def actualizar_videojuego(
   return videojuego
 
 
-# DELETE: Eliminar videojuego
 @router.delete(
     "/{id}",
     response_model=VideoJuego,

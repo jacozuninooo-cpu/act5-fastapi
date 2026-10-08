@@ -17,3 +17,26 @@ class VideoJuego(VideoJuegoCreate):
 
   class Config:
     from_attributes = True 
+
+from typing import Optional
+from sqlmodel import SQLModel
+
+class EstudioCreate(SQLModel):
+  nombre: str
+  pais: str
+
+class EstudioRead(EstudioCreate):
+  id: int
+
+class VideoJuegoCreate(SQLModel):
+  nombre: str
+  genero: str
+  puntuacion: int
+  estudio_id: Optional[int] = None
+
+class VideoJuegoReadWithEstudio(SQLModel):
+  id: int
+  nombre: str
+  genero: str
+  puntuacion: int
+  estudio: Optional[EstudioRead] = None  # ¡Dato anidado!
